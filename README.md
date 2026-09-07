@@ -2,7 +2,7 @@
 
 **判定 Python 代码是原创还是演绎作品** —— 给出与上游最长相同表达片段、逐条豁免依据和风险清单。
 
-一个 Agent Skill，任何支持 skill 的智能体都能用（Claude Code / Codex / Cursor / DeepSeek Harness / Hermes / WorkBuddy …）。
+本仓库包含两个独立产品：一个 **Agent Skill** 和一个 **DSH Plugin**，共享同一套审计引擎。
 审计引擎是**纯 `ast` 静态分析，零第三方依赖、不联网、不调模型**——你的代码不出本机。
 
 ---
@@ -31,9 +31,25 @@
 
 ---
 
-## 安装
+---
 
-### DeepSeek Harness (DSH)
+## 本仓库包含两个独立产品
+
+它们形态不同、装载机制不同、各自独立，只是共享同一套审计引擎（`audit.py`）并放在同一个仓库里。
+
+| | Agent Skill | DSH Plugin |
+|---|---|---|
+| 形态 | `SKILL.md` 技能目录 | Cordis 模块，导出 `apply(ctx)` |
+| 装载 | 放进 Agent 的 skills 目录 | `dsh plugin --profile web add` |
+| 入口文件 | `SKILL.md` | `index.js` + `cordis.patch.yml` |
+| 适用 | Claude Code / Codex / Cursor / Hermes / WorkBuddy 等 | DeepSeek Harness |
+| 需要 Node.js | 否 | 是（≥ 22） |
+
+按你的运行环境选一种装即可，**不需要也不应该两种都装**。
+
+---
+
+## DSH Plugin（用于 DeepSeek Harness）
 
 ```bash
 dsh plugin --profile web add github:ffseika0304/code-ownership-audit
@@ -67,16 +83,14 @@ dsh plugin --profile web update code-ownership-audit
 
 </details>
 
-### 其他 Agent（Claude Code / Codex / Cursor / Hermes / WorkBuddy …）
+## Agent Skill（用于 Claude Code / Codex / Cursor / Hermes / WorkBuddy 等）
 
-本仓库同时是一个标准 Agent Skills 目录，clone 进 skills 目录即可：
+若你使用的 Agent 支持标准 SKILL.md 技能，clone 进 skills 目录即可：
 
 ```bash
 git clone https://github.com/ffseika0304/code-ownership-audit.git \
   ~/.workbuddy/skills/code-ownership-audit
 ```
-
-DSH 用户也可以走这条零插件路径：`~/.dsh/skills/` 或项目级 `.dsh/skills/`。
 
 之后直接对你的 Agent 说：**「帮我做个代码所有权体检」**。
 

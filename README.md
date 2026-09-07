@@ -5,6 +5,16 @@
 <p align="center">🥇 <b>纯 AST 静态分析，零第三方依赖，代码不出本机</b> 🥇</p>
 
 <p align="center">
+  <b>简体中文</b> ·
+  <a href="README.en.md">English</a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/ffseika0304/code-ownership-audit">GitHub（主源）</a> ·
+  <a href="https://gitee.com/seikabook/code-ownership-audit">Gitee（国内镜像）</a>
+</p>
+
+<p align="center">
   <a href="#两种安装方式">安装</a> ·
   <a href="#快速使用">使用</a> ·
   <a href="#两档报告">定价</a> ·

@@ -1,0 +1,14 @@
+# code-ownership-audit bundle layer.
+#
+# This patch inserts one Cordis plugin row into the profile. The row's `name`
+# is the npm package name of this plugin; dsh resolves it through the profile's
+# installed packages and loads the module's named exports
+# ({ name, inject, apply }), which register the skill provider on ctx.skills.
+#
+# Activated automatically by:
+#   dsh plugin --profile web add github:ffseika0304/code-ownership-audit
+#
+# No `config` is required. Optional field: providerName (see README.md).
+- insert:
+    - id: code-ownership-audit
+      name: code-ownership-audit

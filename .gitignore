@@ -1,0 +1,21 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+out/
+*.egg-info/
+.DS_Store
+
+# 审计产物（可能含用户代码片段，绝不入库）
+preview.md
+full.md
+full.json
+certified.md
+certified.json
+bill.json
+receipt*.json
+
+# 凭据
+*.key
+.env

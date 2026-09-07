@@ -21,7 +21,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-TOOL_VERSION = "1.3.3"
+TOOL_VERSION = "1.3.4"
 THRESHOLD_DEFAULT = 3
 
 # why: a caller who can raise the bar arbitrarily turns the tool into a rubber

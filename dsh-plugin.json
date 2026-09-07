@@ -1,22 +1,54 @@
 {
   "name": "code-ownership-audit",
   "version": "1.3.3",
-  "description": "判定 Python 代码是原创还是演绎作品 — 纯本地 AST 分析，零依赖不联网",
+  "description": "判定 Python 代码是原创还是演绎作品：给出与上游最长相同表达片段、逐条豁免依据和风险清单。纯本地 AST 分析，零依赖、不联网、不调模型。",
+  "author": "ffseika0304",
+  "license": "MIT",
+  "homepage": "https://github.com/ffseika0304/code-ownership-audit",
+  "repository": "https://github.com/ffseika0304/code-ownership-audit",
+  "type": "skill",
+  "entry": "SKILL.md",
+  "icon": "icon.png",
+  "keywords": [
+    "code-ownership",
+    "code-audit",
+    "derivative-work",
+    "license-compliance",
+    "ast-analysis",
+    "dsh-skill",
+    "agent-skills"
+  ],
+  "runtime": {
+    "python": ">=3.9"
+  },
+  "dependencies": {
+    "required": [],
+    "optional": {
+      "pycryptodome": "仅付费档离线验签需要；免费预览完全零依赖"
+    }
+  },
   "commands": [
     {
-      "command": "audit-code",
-      "description": "对目标代码目录执行代码所有权审计，对比上游参考版",
-      "args": ["<target>", "--reference", "<upstream>", "--out-dir", "./out"]
+      "name": "audit",
+      "run": "python audit.py <target> --reference <upstream> --tier preview",
+      "description": "免费预览：风险数量、类型分布、一句话摘要，全程离线"
+    },
+    {
+      "name": "audit-full",
+      "run": "python audit.py <target> --reference <upstream> --tier full",
+      "description": "完整报告：代码位置、行号、修复建议"
     }
   ],
   "pricing": {
-    "preview": "free",
-    "full_report": "0.2 CNY per invocation"
+    "model": "freemium",
+    "preview": "free, unlimited",
+    "full": "CNY 0.2 per call",
+    "protocol": "x402",
+    "note": "免费档不联网；仅完整报告的认证凭证需联网付款"
   },
   "privacy": {
-    "data": "all local, no network calls"
-  },
-  "license": "MIT",
-  "homepage": "https://xiaping.coze.com",
-  "repository": "https://github.com/ffseika0304/code-ownership-audit"
+    "network_access": "免费档零网络访问；付费档仅访问支付预言机，不上传任何代码",
+    "data_sent": "none",
+    "llm_calls": "none"
+  }
 }

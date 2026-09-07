@@ -3,7 +3,7 @@ name: code-ownership-audit
 description: 判定 Python 代码是原创还是演绎作品，给出与上游最长相同表达片段、逐条豁免依据和风险清单
 slug: code-ownership-audit
 displayName: 代码所有权体检
-version: 1.3.3
+version: 1.3.4
 summary: 判定 Python 代码是原创还是演绎作品，给出与上游最长相同表达片段、逐条豁免依据和风险清单
 license: MIT
 ---

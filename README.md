@@ -33,13 +33,50 @@
 
 ## 安装
 
-放进你的 Agent skills 目录即可，例如：
+### DeepSeek Harness (DSH)
 
 ```bash
-# Claude Code / WorkBuddy 等
+dsh plugin --profile web add github:ffseika0304/code-ownership-audit
+```
+
+安装后重启 profile 让 bundle 层生效：
+
+```bash
+dsh --profile web
+```
+
+技能随即出现在模型可见的技能目录里，遇到「这段代码算不算抄的」这类场景会自动加载，也可以直接点名：
+**「用 code-ownership-audit 检查 ./my-code 相对 ./upstream 的所有权情况」**
+
+<details>
+<summary>锁版本 / 本地调试 / 卸载</summary>
+
+```bash
+# 锁定 commit（推荐，DSH 仍是 developer preview）
+dsh plugin --profile web add "github:ffseika0304/code-ownership-audit#<sha>"
+
+# 本地目录（开发调试）
+dsh plugin --profile web add link:/absolute/path/to/code-ownership-audit
+
+# 卸载 / 更新
+dsh plugin --profile web remove code-ownership-audit
+dsh plugin --profile web update code-ownership-audit
+```
+
+插件层是**纯 ESM JavaScript、零构建、零运行时依赖**，因此不会触发 pnpm 的 `allowBuilds` 授权中断。
+
+</details>
+
+### 其他 Agent（Claude Code / Codex / Cursor / Hermes / WorkBuddy …）
+
+本仓库同时是一个标准 Agent Skills 目录，clone 进 skills 目录即可：
+
+```bash
 git clone https://github.com/ffseika0304/code-ownership-audit.git \
   ~/.workbuddy/skills/code-ownership-audit
 ```
+
+DSH 用户也可以走这条零插件路径：`~/.dsh/skills/` 或项目级 `.dsh/skills/`。
 
 之后直接对你的 Agent 说：**「帮我做个代码所有权体检」**。
 
@@ -102,8 +139,20 @@ alipay-bot check-wallet     # 自检
 | 用途 | 依赖 |
 |---|---|
 | 审计引擎（免费档） | **无** —— 只用 Python 标准库 `ast` |
+| DSH 插件装载层 | **无** —— 纯 ESM JavaScript，零构建零依赖 |
 | 付费档离线验签 | `pycryptodome` |
 | 付费档付款 | 支付宝 AI 钱包 CLI |
+
+## 运行环境与权限
+
+| 项目 | 说明 |
+|---|---|
+| Python | ≥ 3.9（审计引擎本体） |
+| Node.js | ≥ 22（仅 DSH 插件装载层需要） |
+| 网络访问 | **免费档零网络访问**；仅付费档的付款那一步联网访问支付预言机 |
+| 上传数据 | **none** —— 代码不出本机 |
+| 模型调用 | **none** —— 不调用任何 LLM |
+| 文件写入 | 只写 `--out-dir` 指定的产物目录，不改动源码目录 |
 
 ## 测试
 
@@ -119,3 +168,5 @@ MIT
 
 <sub>本工具给出的是**技术事实**（哪些表达相同、相同到什么程度），不构成法律意见。
 最终的许可证判断请咨询专业人士。</sub>
+
+<sub>本项目为社区开源项目，与 DeepSeek AI 无隶属关系，非官方插件。</sub>
